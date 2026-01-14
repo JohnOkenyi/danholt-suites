@@ -9,7 +9,7 @@ interface Room {
   currency?: string
   description?: string
   amenities?: string[]
-}}
+}
 
 interface RoomCardProps {
   room: Room
