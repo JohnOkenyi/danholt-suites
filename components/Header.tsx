@@ -2,60 +2,58 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
-export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="bg-[#1a1a2e] text-white sticky top-0 z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold">
-              <span className="text-white">Danholt</span>
-              <span className="text-yellow-400 ml-2">Suites</span>
-            </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-6 flex justify-between items-center">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <div className="text-3xl font-bold">
+            <span className="text-white">Danholt</span>
+            <span className="text-yellow-500 ml-2">Suites</span>
+          </div>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex gap-8 items-center">
+          <Link href="/" className="hover:text-yellow-500 transition-colors duration-200 font-medium">Home</Link>
+          <Link href="/rooms" className="hover:text-yellow-500 transition-colors duration-200 font-medium">Rooms</Link>
+          <Link href="/restaurant" className="hover:text-yellow-500 transition-colors duration-200 font-medium">Dining</Link>
+          <Link href="/facilities" className="hover:text-yellow-500 transition-colors duration-200 font-medium">Facilities</Link>
+          <Link href="/contact" className="hover:text-yellow-500 transition-colors duration-200 font-medium">Contact</Link>
+          <Link href="/booking">
+            <button className="bg-yellow-500 text-black px-6 py-2 rounded-lg font-semibold hover:bg-yellow-600 transition-all duration-200 hover:shadow-lg hover:glow">Book Now</button>
           </Link>
+        </nav>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link href="/" className="hover:text-yellow-400 transition-colors">Home</Link>
-            <Link href="/rooms" className="hover:text-yellow-400 transition-colors">Rooms</Link>
-            <Link href="/dining" className="hover:text-yellow-400 transition-colors">Dining</Link>
-            <Link href="/facilities" className="hover:text-yellow-400 transition-colors">Facilities</Link>
-            <Link href="/contact" className="hover:text-yellow-400 transition-colors">Contact</Link>
-          </nav>
-
-          {/* Book Now Button */}
-          <Link href="/booking" className="hidden md:block bg-yellow-500 text-black px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">
-            Book Now
-          </Link>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-white"
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? '✕' : '☰'}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <nav className="md:hidden pb-4 space-y-2">
-            <Link href="/" className="block py-2 hover:text-yellow-400">Home</Link>
-            <Link href="/rooms" className="block py-2 hover:text-yellow-400">Rooms</Link>
-            <Link href="/dining" className="block py-2 hover:text-yellow-400">Dining</Link>
-            <Link href="/facilities" className="block py-2 hover:text-yellow-400">Facilities</Link>
-            <Link href="/contact" className="block py-2 hover:text-yellow-400">Contact</Link>
-            <Link href="/booking" className="block bg-yellow-500 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition-colors text-center">
-              Book Now
-            </Link>
-          </nav>
-        )}
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
+
+      {/* Mobile Navigation */}
+      {isOpen && (
+        <nav className="md:hidden bg-[#2a2a4e] px-4 py-4 flex flex-col gap-4">
+          <Link href="/" className="hover:text-yellow-500 transition-colors duration-200 font-medium py-2" onClick={() => setIsOpen(false)}>Home</Link>
+          <Link href="/rooms" className="hover:text-yellow-500 transition-colors duration-200 font-medium py-2" onClick={() => setIsOpen(false)}>Rooms</Link>
+          <Link href="/restaurant" className="hover:text-yellow-500 transition-colors duration-200 font-medium py-2" onClick={() => setIsOpen(false)}>Dining</Link>
+          <Link href="/facilities" className="hover:text-yellow-500 transition-colors duration-200 font-medium py-2" onClick={() => setIsOpen(false)}>Facilities</Link>
+          <Link href="/contact" className="hover:text-yellow-500 transition-colors duration-200 font-medium py-2" onClick={() => setIsOpen(false)}>Contact</Link>
+          <Link href="/booking" onClick={() => setIsOpen(false)}>
+            <button className="w-full bg-yellow-500 text-black px-6 py-2 rounded-lg font-semibold hover:bg-yellow-600 transition-all duration-200">Book Now</button>
+          </Link>
+        </nav>
+      )}
     </header>
   );
-}
+};
+
+export default Header;
