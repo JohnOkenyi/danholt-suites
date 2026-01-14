@@ -34,7 +34,7 @@ export default function RoomCard({ room }: RoomCardProps) {
         <div className="mb-4">
           <h4 className="text-sm font-semibold text-gray-700 mb-2">Amenities:</h4>
           <ul className="text-sm text-gray-600 space-y-1">
-            {room.amenities.map((amenity, index) => (
+            {room.amenities?.map((amenity, index) => (
               <li key={index} className="flex items-center">
                 <span className="text-amber-600 mr-2">✓</span>
                 {amenity}
