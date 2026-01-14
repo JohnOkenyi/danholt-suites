@@ -1,107 +1,48 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import RoomCard from '@/components/RoomCard'
+'use client';
 
-export default function RoomsPage() {
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Image from 'next/image';
+import Link from 'next/link';
+
+const RoomsPage = () => {
   const rooms = [
-    {
-      id: 1,
-      name: 'Deluxe Suite',
-      description: 'Spacious suite with stunning city views and premium amenities',
-      price: 299,
-      image: '/images/deluxe-suite.jpg',
-      amenities: ['King Bed', 'City View', 'Mini Bar', 'Free WiFi', 'Room Service', 'Smart TV']
-    },
-    {
-      id: 2,
-      name: 'Executive Room',
-      description: 'Perfect for business travelers with work desk and high-speed internet',
-      price: 199,
-      image: '/images/executive-room.jpg',
-      amenities: ['Queen Bed', 'Work Desk', 'Coffee Machine', 'Free WiFi', 'Smart TV', 'Safe']
-    },
-    {
-      id: 3,
-      name: 'Presidential Suite',
-      description: 'Ultimate luxury experience with separate living area',
-      price: 599,
-      image: '/images/presidential-suite.jpg',
-      amenities: ['King Bed', 'Living Room', 'Jacuzzi', 'Butler Service', 'Balcony', 'Premium Bar']
-    },
-    {
-      id: 4,
-      name: 'Standard Room',
-      description: 'Comfortable and affordable room with essential amenities',
-      price: 149,
-      image: '/images/standard-room.jpg',
-      amenities: ['Double Bed', 'Free WiFi', 'TV', 'Air Conditioning', 'Private Bathroom']
-    },
-    {
-      id: 5,
-      name: 'Family Suite',
-      description: 'Spacious suite perfect for families with connecting rooms',
-      price: 399,
-      image: '/images/family-suite.jpg',
-      amenities: ['2 Bedrooms', 'Living Area', 'Kitchenette', 'Free WiFi', 'Kids Amenities']
-    },
-    {
-      id: 6,
-      name: 'Honeymoon Suite',
-      description: 'Romantic suite with luxury amenities for special occasions',
-      price: 499,
-      image: '/images/honeymoon-suite.jpg',
-      amenities: ['King Bed', 'Jacuzzi', 'Champagne', 'Rose Petals', 'City View', 'Premium Toiletries']
-    }
-  ]
+    { id: 1, name: 'Standard Room', price: '₦10,000', image: '/images/standard-room.jpg', capacity: '1-2 guests', description: 'Comfortable accommodation with essential amenities' },
+    { id: 2, name: 'Deluxe Room', price: '₦15,000', image: '/images/deluxe-room.jpg', capacity: '2-3 guests', description: 'Premium room with enhanced comfort and views' },
+    { id: 3, name: 'Executive Suite', price: '₦20,000', image: '/images/executive-suite.jpg', capacity: '3-4 guests', description: 'Spacious suite with luxury amenities and premium service' },
+  ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#FAF9F6]">
       <Header />
-      
-      {/* Page Header */}
-      <section className="relative h-96 bg-gray-900">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/rooms-header.jpg"
-            alt="Our Rooms"
-            fill
-            className="object-cover opacity-50"
-          />
-        </div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">Our Rooms & Suites</h1>
-          <p className="text-xl md:text-2xl max-w-2xl">Discover the perfect accommodation for your stay</p>
-        </div>
-      </section>
-
-      {/* Rooms Grid */}
-      <section className="py-20 px-4 bg-gray-50">
+      <section className="py-24 px-4 sm:px-8 lg:px-16">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <h1 className="text-5xl font-semibold mb-4 text-center">Luxury Rooms & Suites</h1>
+          <p className="text-xl text-center text-gray-600 mb-16">Experience comfort and elegance in our beautifully appointed accommodations</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {rooms.map((room) => (
-              <RoomCard key={room.id} room={room} />
+              <div key={room.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <div className="relative h-64 w-full">
+                  <Image src={room.image} alt={room.name} fill className="object-cover" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold mb-2">{room.name}</h3>
+                  <p className="text-gray-600 text-sm mb-4">{room.capacity}</p>
+                  <p className="text-gray-700 mb-4">{room.description}</p>
+                  <p className="text-amber-600 font-bold text-xl mb-6">{room.price}/night</p>
+                  <Link href="/booking">
+                    <button className="w-full bg-[#1a1a2e] text-white py-3 rounded-lg hover:bg-[#2a2a4e] transition-colors duration-200 font-semibold">Book Now</button>
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Booking CTA */}
-      <section className="py-20 px-4 bg-amber-600 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Book Your Stay?</h2>
-          <p className="text-xl mb-8">Check availability and special offers</p>
-          <Link
-            href="/booking"
-            className="bg-white text-amber-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition inline-block"
-          >
-            Book Now
-          </Link>
-        </div>
-      </section>
-
       <Footer />
     </div>
-  )
-}
+  );
+};
+
+export default RoomsPage;
