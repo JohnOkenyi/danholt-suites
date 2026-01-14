@@ -47,16 +47,14 @@ button {
   animation: fadeIn 1s ease-in-out;
 }
 
-@layer components {
-  .bg-cream {
-    @apply bg-[#FAF9F6];
-  }
+.bg-cream {
+  background-color: #FAF9F6;
+}
 
-  .bg-dark-navy {
-    @apply bg-[#1a1a2e];
-  }
+.bg-dark-navy {
+  background-color: #1a1a2e;
+}
 
-  .text-gold {
-    @apply text-amber-600;
-  }
+.text-gold {
+  color: #d97706;
 }
