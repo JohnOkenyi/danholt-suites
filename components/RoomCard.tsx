@@ -4,11 +4,12 @@ import Link from 'next/link'
 interface Room {
   id: number
   name: string
-  description: string
   price: number
   image: string
-  amenities: string[]
-}
+  currency?: string
+  description?: string
+  amenities?: string[]
+}}
 
 interface RoomCardProps {
   room: Room
