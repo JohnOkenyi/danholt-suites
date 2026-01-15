@@ -29,93 +29,79 @@ const features = [
 
 export default function DanholtPromise() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const headingVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: 'easeOut',
-      },
-    },
-  };
-
-  const boxVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut',
-      },
-    },
-  };
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
     <section
       ref={ref}
-      className="bg-[#f5f5f0] py-24 md:py-32 px-4 sm:px-6 lg:px-8"
+      className="relative py-32 bg-gradient-to-b from-white to-[#F8F6F3] overflow-hidden"
     >
-      <div className="mx-auto max-w-6xl">
-        {/* Header */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="text-center mb-16"
-        >
-          <motion.h2
-            variants={headingVariants}
-            className="text-[#3a3a3a] text-4xl sm:text-5xl md:text-6xl font-light leading-tight"
-          >
-            The Danholt Suites Promise.
-          </motion.h2>
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent" />
 
-          <motion.p
-            variants={headingVariants}
-            className="text-[#6a6a6a] text-xl sm:text-2xl md:text-3xl font-light mt-6"
-          >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="text-center mb-20"
+        >
+          <h2 className="text-base sm:text-lg font-light tracking-[0.2em] text-[#2D2D2D] uppercase mb-4">
+            The Danholt Suites Promise.
+          </h2>
+          <p className="text-4xl sm:text-5xl lg:text-6xl font-light text-[#2D2D2D] leading-tight">
             Excellence in every detail.
-          </motion.p>
+          </p>
         </motion.div>
 
-        {/* Feature Boxes - 2x2 Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 max-w-5xl mx-auto"
-        >
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {features.map((feature, index) => (
             <motion.div
               key={feature.id}
-              variants={boxVariants}
-              transition={{ delay: 0.2 + index * 0.1 }}
-              className="bg-white rounded-xl md:rounded-2xl p-8 md:p-10 shadow-sm border border-black/5 hover:shadow-md transition-shadow"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.2 + index * 0.15,
+                ease: 'easeOut',
+              }}
+              className="group relative"
             >
-              <h3 className="text-[#2a2a2a] text-xl md:text-2xl font-medium mb-3">
-                {feature.heading}
-              </h3>
-              <p className="text-[#6a6a6a] text-base md:text-lg font-normal leading-relaxed">
-                {feature.description}
-              </p>
+              {/* Feature Card */}
+              <div className="relative h-full">
+                {/* Top Accent Line */}
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.4 + index * 0.15,
+                    ease: 'easeOut',
+                  }}
+                  className="absolute top-0 left-0 w-12 h-[2px] bg-[#D4AF37] origin-left"
+                />
+
+                {/* Content */}
+                <div className="pt-8">
+                  <h3 className="text-2xl font-light text-[#2D2D2D] mb-3 leading-tight">
+                    {feature.heading}
+                  </h3>
+                  <p className="text-base text-[#6A6A6A] font-light leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+
+                {/* Hover Effect */}
+                <motion.div
+                  className="absolute -bottom-2 left-0 w-0 h-[1px] bg-[#D4AF37] group-hover:w-full transition-all duration-500"
+                />
+              </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
